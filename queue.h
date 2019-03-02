@@ -11,6 +11,7 @@
  * It uses a singly-linked list to represent the set of queue elements
  */
 
+#include <assert.h>
 #include <stdbool.h>
 
 /************** Data structure declarations ****************/
@@ -25,12 +26,8 @@ typedef struct ELE {
 
 /* Queue structure */
 typedef struct {
-    list_ele_t *head;          /* Linked list of elements */
-                               /*
-                                 You will need to add more fields to this structure
-                                 to efficiently implement q_size and q_insert_tail
-                               */
-    list_ele_t *q_insert_tail; /* Tail of the linked list */
+    list_ele_t *head; /* Linked list of elements */
+    list_ele_t *tail; /* Tail of the linked list */
     size_t q_size;
 } queue_t;
 
@@ -90,3 +87,15 @@ int q_size(queue_t *q);
   It should rearrange the existing ones.
  */
 void q_reverse(queue_t *q);
+
+
+static inline bool is_null_or_empty(queue_t *q)
+{
+    if (q->q_size == 1) {
+        assert(q->head);
+        if (q->head->value == NULL) {
+            return true;
+        }
+    }
+    return false;
+};
